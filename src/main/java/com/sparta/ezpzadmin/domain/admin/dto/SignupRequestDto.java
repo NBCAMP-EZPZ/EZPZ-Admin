@@ -19,17 +19,9 @@ public class SignupRequestDto {
             message = "비밀번호는 최소 10자 이상이어야 하며, 영문 대소문자, 숫자, 특수문자를 최소 1글자씩 포함해야 합니다.")
     private String password;
 
-    @NotBlank(message = "이름은 공백일 수 없습니다.")
-    @Pattern(regexp = "^[가-힣a-zA-Z\\s]+$", message = "이름은 한글과 영어와 띄어쓰기만 포함할 수 있습니다.")
-    private String name;
-
     @NotBlank(message = "이메일은 공백일 수 없습니다.")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
             message = "이메일 형식이 맞지 않습니다.")
     private String email;
-
-    @NotBlank(message = "전화번호는 공백일 수 없습니다.")
-    @Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "전화번호 형식이 맞지 않습니다.")
-    private String phoneNumber;
 
 }
