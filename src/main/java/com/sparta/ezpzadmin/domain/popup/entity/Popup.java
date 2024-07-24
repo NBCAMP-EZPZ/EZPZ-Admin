@@ -3,6 +3,7 @@ package com.sparta.ezpzadmin.domain.popup.entity;
 import com.sparta.ezpzadmin.common.entity.Timestamped;
 import com.sparta.ezpzadmin.common.exception.CustomException;
 import com.sparta.ezpzadmin.common.exception.ErrorType;
+import com.sparta.ezpzadmin.domain.host.entity.Host;
 import com.sparta.ezpzadmin.domain.popup.enums.ApprovalStatus;
 import com.sparta.ezpzadmin.domain.popup.enums.PopupStatus;
 import jakarta.persistence.*;
@@ -19,11 +20,12 @@ public class Popup extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "popup_id", nullable = false, unique = true)
+    @Column(name = "popup_id")
     private Long id;
 
+    @ManyToOne
     @JoinColumn(name = "host_id", nullable = false)
-    private Long hostId;
+    private Host host;
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -67,11 +69,14 @@ public class Popup extends Timestamped {
     public void approvePopup(boolean approval) {
         if (this.approvalStatus == ApprovalStatus.APPROVED) {
             throw new CustomException(ErrorType.POPUP_ALREADY_APPROVED);
+        }else if (this.approvalStatus == ApprovalStatus.REJECTED) {
+            throw new CustomException(ErrorType.POPUP_ALREADY_REJECTED);
         }
         if (approval) {
-            approvalStatus = ApprovalStatus.APPROVED;
+            this.approvalStatus = ApprovalStatus.APPROVED;
         }else {
-            approvalStatus = ApprovalStatus.REJECTED;
+            this.approvalStatus = ApprovalStatus.REJECTED;
+            this.popupStatus = PopupStatus.CANCELED;
         }
     }
 }

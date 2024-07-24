@@ -13,7 +13,7 @@ public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id", nullable = false, unique = true)
+    @Column(name = "image_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,14 +25,4 @@ public class Image {
 
     @Column(nullable = false)
     private String url;
-
-    private Image(Popup popup, String name, String url) {
-        this.popup = popup;
-        this.name = name;
-        this.url = url;
-    }
-
-    public static Image of(Popup popup, ImageResponseDto responseDto) {
-        return new Image(popup, responseDto.getName(), responseDto.getUrl());
-    }
 }

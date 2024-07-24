@@ -1,11 +1,13 @@
 package com.sparta.ezpzadmin.domain.popup.controller;
 
+import com.sparta.ezpzadmin.common.security.UserDetailsImpl;
 import com.sparta.ezpzadmin.common.util.PageUtil;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupResponseDto;
 import com.sparta.ezpzadmin.domain.popup.service.PopupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import static com.sparta.ezpzadmin.common.util.ControllerUtil.*;
@@ -30,8 +32,8 @@ public class PopupController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "createdAt") String sortBy,
-            @RequestParam(defaultValue = "all") String approvalStatus) {
-        // todo : Admin 구현 시 추가
+            @RequestParam(defaultValue = "all") String approvalStatus,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         PageUtil pageUtil = PageUtil.builder()
                 .page(page)
@@ -51,7 +53,8 @@ public class PopupController {
      */
     @GetMapping("/v1/popups/{popupId}")
     public ResponseEntity<?> findPopup(
-            @PathVariable Long popupId) {
+            @PathVariable Long popupId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
         PopupResponseDto responseDto = popupService.findPopup(popupId);
         return getResponseEntity(responseDto, "팝업스토어 상세보기 조회 성공");
     }
@@ -65,7 +68,8 @@ public class PopupController {
     @PatchMapping("/v1/popups/{popupId}")
     public ResponseEntity<?> approvePopup(
             @PathVariable Long popupId,
-            @RequestParam boolean approval) {
+            @RequestParam boolean approval,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
         popupService.approvePopup(popupId, approval);
         return getResponseEntity(approval ? "팝업 승인 성공" : "팝업 반려 성공");
     }

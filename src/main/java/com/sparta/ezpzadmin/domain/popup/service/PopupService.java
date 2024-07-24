@@ -28,11 +28,8 @@ public class PopupService {
      * @return 팝업 목록
      */
     public Page<?> findAllPopupsByStatus(PageUtil pageUtil) {
-        // todo : Admin 구현 완료 시 수정
-        String companyName = "companyName";
-
         return popupRepository.findAllPopupsByStatus(pageUtil)
-                .map(p -> PopupPageResponseDto.of(p.getId(), p.getName(), companyName, p.getCreatedAt()));
+                .map(p -> PopupPageResponseDto.of(p.getId(), p.getName(), p.getHost().getCompanyName(), p.getCreatedAt()));
     }
 
     /**
@@ -41,8 +38,7 @@ public class PopupService {
      * @return 팝업 상세정보
      */
     public PopupResponseDto findPopup(Long popupId) {
-        Popup popup = popupRepository.findById(popupId)
-                .orElseThrow(() -> new CustomException(ErrorType.POPUP_NOT_FOUNT));
+        Popup popup = findPopupById(popupId);
 
         List<String> imageUrls = imageService.findAllByPopup(popup);
 
@@ -51,14 +47,23 @@ public class PopupService {
 
     /**
      * 팝업 승인/빈려
-     * @param popupId 팝업 ID
+     * @param popupId  팝업 ID
      * @param approval 승인 여부
      */
     @Transactional
     public void approvePopup(Long popupId, boolean approval) {
-        Popup popup = popupRepository.findById(popupId)
-                .orElseThrow(() -> new CustomException(ErrorType.POPUP_NOT_FOUNT));
+        Popup popup = findPopupById(popupId);
         popup.approvePopup(approval);
         popupRepository.save(popup);
+    }
+
+    /**
+     * 팝업 찾기
+     * @param popupId 팝업 ID
+     * @return 팝업
+     */
+    private Popup findPopupById(Long popupId) {
+        return popupRepository.findById(popupId)
+                .orElseThrow(() -> new CustomException(ErrorType.POPUP_NOT_FOUNT));
     }
 }
