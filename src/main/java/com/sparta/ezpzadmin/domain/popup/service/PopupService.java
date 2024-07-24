@@ -2,7 +2,6 @@ package com.sparta.ezpzadmin.domain.popup.service;
 
 import com.sparta.ezpzadmin.common.exception.CustomException;
 import com.sparta.ezpzadmin.common.exception.ErrorType;
-import com.sparta.ezpzadmin.common.util.PageUtil;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupPageResponseDto;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupResponseDto;
 import com.sparta.ezpzadmin.domain.popup.entity.Popup;
