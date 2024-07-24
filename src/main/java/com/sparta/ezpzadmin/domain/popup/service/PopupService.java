@@ -29,7 +29,7 @@ public class PopupService {
      */
     public Page<?> findAllPopupsByStatus(PageUtil pageUtil) {
         return popupRepository.findAllPopupsByStatus(pageUtil)
-                .map(p -> PopupPageResponseDto.of(p.getId(), p.getName(), p.getHost().getCompanyName(), p.getCreatedAt()));
+                .map(PopupPageResponseDto::of);
     }
 
     /**

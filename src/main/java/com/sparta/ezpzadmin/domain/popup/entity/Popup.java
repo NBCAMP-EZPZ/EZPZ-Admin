@@ -56,6 +56,9 @@ public class Popup extends Timestamped {
     @Enumerated(EnumType.STRING)
     private ApprovalStatus approvalStatus;
 
+    @Column(name = "like_count")
+    private int likeCount;
+
     @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;
 
