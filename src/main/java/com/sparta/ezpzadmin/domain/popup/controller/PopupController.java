@@ -1,7 +1,6 @@
 package com.sparta.ezpzadmin.domain.popup.controller;
 
 import com.sparta.ezpzadmin.common.security.UserDetailsImpl;
-import com.sparta.ezpzadmin.common.util.PageUtil;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupResponseDto;
 import com.sparta.ezpzadmin.domain.popup.service.PopupService;
 import lombok.RequiredArgsConstructor;

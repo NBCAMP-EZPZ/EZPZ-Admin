@@ -5,7 +5,6 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.sparta.ezpzadmin.common.util.PageUtil;
 import com.sparta.ezpzadmin.domain.popup.entity.Popup;
 import com.sparta.ezpzadmin.domain.popup.enums.ApprovalStatus;
 import lombok.RequiredArgsConstructor;
