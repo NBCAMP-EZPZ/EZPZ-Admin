@@ -1,10 +1,12 @@
 package com.sparta.ezpzadmin.domain.popup.controller;
 
 import com.sparta.ezpzadmin.common.security.UserDetailsImpl;
+import com.sparta.ezpzadmin.domain.popup.dto.PopupCondition;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupResponseDto;
 import com.sparta.ezpzadmin.domain.popup.service.PopupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -20,28 +22,19 @@ public class PopupController {
 
     /**
      * 승인 상태별 팝업 목록 조회
-     * @param page 페이지
-     * @param size 개수
-     * @param sortBy 정렬 기준
+     * @param pageable 페이징
      * @param approvalStatus 승인 상태
      * @return 팝업 목록
      */
     @GetMapping("/v1/popups")
     public ResponseEntity<?> findAllPopupsByStatus(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "createdAt") String sortBy,
+            Pageable pageable,
             @RequestParam(defaultValue = "all") String approvalStatus,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        PageUtil pageUtil = PageUtil.builder()
-                .page(page)
-                .size(size)
-                .sortBy(sortBy)
-                .firstStatus(approvalStatus)
-                .build();
+        PopupCondition cond = PopupCondition.of(approvalStatus);
 
-        Page<?> popupList = popupService.findAllPopupsByStatus(pageUtil);
+        Page<?> popupList = popupService.findAllPopupsByStatus(pageable, cond);
         return getResponseEntity(popupList, "승인 상태별 팝업 목록 조회 성공");
     }
 

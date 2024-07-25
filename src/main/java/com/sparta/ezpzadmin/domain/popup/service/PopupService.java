@@ -2,12 +2,15 @@ package com.sparta.ezpzadmin.domain.popup.service;
 
 import com.sparta.ezpzadmin.common.exception.CustomException;
 import com.sparta.ezpzadmin.common.exception.ErrorType;
+import com.sparta.ezpzadmin.common.util.PageUtil;
+import com.sparta.ezpzadmin.domain.popup.dto.PopupCondition;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupPageResponseDto;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupResponseDto;
 import com.sparta.ezpzadmin.domain.popup.entity.Popup;
 import com.sparta.ezpzadmin.domain.popup.repository.popup.PopupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +26,15 @@ public class PopupService {
 
     /**
      * 승인 상태별 팝업 목록 조회
-     * @param pageUtil 페이지 정보
+     * @param pageable 페이징
+     * @param cond 조회 조건
      * @return 팝업 목록
      */
-    public Page<?> findAllPopupsByStatus(PageUtil pageUtil) {
-        return popupRepository.findAllPopupsByStatus(pageUtil)
+    public Page<?> findAllPopupsByStatus(Pageable pageable, PopupCondition cond) {
+        Page<?> popupList = popupRepository.findAllPopupsByStatus(pageable, cond)
                 .map(PopupPageResponseDto::of);
+        PageUtil.validatePageableWithPage(pageable, popupList);
+        return popupList;
     }
 
     /**
