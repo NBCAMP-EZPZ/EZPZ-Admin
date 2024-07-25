@@ -1,7 +1,6 @@
 package com.sparta.ezpzadmin.domain.popup.controller;
 
 import com.sparta.ezpzadmin.common.security.UserDetailsImpl;
-import com.sparta.ezpzadmin.common.util.PageUtil;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupCondition;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupResponseDto;
 import com.sparta.ezpzadmin.domain.popup.service.PopupService;
@@ -36,7 +35,6 @@ public class PopupController {
         PopupCondition cond = PopupCondition.of(approvalStatus);
 
         Page<?> popupList = popupService.findAllPopupsByStatus(pageable, cond);
-        PageUtil.validatePageableWithPage(pageable, popupList);
         return getResponseEntity(popupList, "승인 상태별 팝업 목록 조회 성공");
     }
 

@@ -2,6 +2,7 @@ package com.sparta.ezpzadmin.domain.popup.service;
 
 import com.sparta.ezpzadmin.common.exception.CustomException;
 import com.sparta.ezpzadmin.common.exception.ErrorType;
+import com.sparta.ezpzadmin.common.util.PageUtil;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupCondition;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupPageResponseDto;
 import com.sparta.ezpzadmin.domain.popup.dto.PopupResponseDto;
@@ -30,8 +31,10 @@ public class PopupService {
      * @return 팝업 목록
      */
     public Page<?> findAllPopupsByStatus(Pageable pageable, PopupCondition cond) {
-        return popupRepository.findAllPopupsByStatus(pageable, cond)
+        Page<?> popupList = popupRepository.findAllPopupsByStatus(pageable, cond)
                 .map(PopupPageResponseDto::of);
+        PageUtil.validatePageableWithPage(pageable, popupList);
+        return popupList;
     }
 
     /**
