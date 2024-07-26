@@ -24,8 +24,8 @@ public class PopupRepositoryCustomImpl implements PopupRepositoryCustom {
     @Override
     public Page<Popup> findAllPopupsByStatus(Pageable pageable, PopupCondition cond) {
         List<Popup> popups = jpaQueryFactory
-                .select(popup)
-                .from(popup)
+                .selectFrom(popup)
+                .join(popup.host).fetchJoin()
                 .where(
                         approvalStatusEq(cond.getApprovalStatus())
                 )
