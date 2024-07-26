@@ -24,6 +24,8 @@ public class Coupon {
 
     private int totalCount;
 
+    private int remainingCount;
+
     private LocalDate expiredAt;
 
     private Coupon(CouponRequestDto dto) {
@@ -31,6 +33,7 @@ public class Coupon {
         this.discountAmount = dto.getDiscountAmount();
         this.totalCount = dto.getTotalCount();
         this.expiredAt = dto.getExpiredAt();
+        this.remainingCount = dto.getTotalCount();
     }
 
     public static Coupon of(CouponRequestDto dto) {
