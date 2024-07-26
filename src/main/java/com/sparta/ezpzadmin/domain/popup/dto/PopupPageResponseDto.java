@@ -11,6 +11,8 @@ public class PopupPageResponseDto {
     private final Long popupId;
     private final String name;
     private final String companyName;
+    private final String thumbnailUrl;
+    private final String popupStatus;
     private final int likeCount;
     private final LocalDateTime createdAt;
 
@@ -18,6 +20,8 @@ public class PopupPageResponseDto {
         this.popupId = popup.getId();
         this.name = popup.getName();
         this.companyName = popup.getHost().getCompanyName();
+        this.thumbnailUrl = popup.getThumbnailUrl();
+        this.popupStatus = popup.getPopupStatus().toString();
         this.likeCount = popup.getLikeCount();
         this.createdAt = popup.getCreatedAt();
     }
