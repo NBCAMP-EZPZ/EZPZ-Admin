@@ -8,8 +8,8 @@ on:
 
 # 환경변수
 env:
-  ECR_URL: ${{secrets.ECR_URL}} # 975049980377.dkr.ecr.ap-northeast-2.amazonaws.com
-  ECR_REPOSITORY: ${{secrets.ECR_REPOSITORY}} # ezpz-admin
+  ECR_URL: ${{secrets.ECR_URL}}
+  ECR_REPOSITORY: ${{secrets.ECR_REPOSITORY}}
   ECS_SERVICE: ${{secrets.ECS_SERVICE}}
   ECS_CLUSTER: ${{secrets.ECS_CLUSTER}}
   ECS_TASK_DEFINITION: ${{secrets.ECS_TASK_DEFINITION}}
