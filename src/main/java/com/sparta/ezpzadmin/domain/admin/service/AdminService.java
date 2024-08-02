@@ -42,7 +42,7 @@ public class AdminService {
      */
     @Transactional
     public void logout(Admin user) {
-        refreshTokenRepository.deleteById(user.getUsername());
+        refreshTokenRepository.deleteByRefreshToken(user.getUsername());
     }
 
 }
