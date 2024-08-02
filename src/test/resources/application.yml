@@ -1,22 +1,20 @@
 spring:
   profiles:
     active:
-      local
+      test
 
-  datasource:
-    url: ${DATASOURCE_URL}
-    username: ${DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  #  스프링 부트는 datasource 설정이 없으면 기본적으로 메모리 DB를 사용하고, driver-class도 현재 등록된 라이브러리를 보고 찾아준다.
+  #  추가로 ddl-auto도 create-drop 모드로 동작한다.
+  #  따라서 데이터소스나, JPA 관련된 별도의 추가 설정을 하지 않아도 된다.
 
   servlet:
     multipart:
       maxFileSize: 10MB
       maxRequestSize: 20MB
 
-  jpa:
-    hibernate:
-      ddl-auto: ${DDL_AUTO}  # Hibernate 자동 DDL 생성 옵션
+    #  jpa:
+    #    hibernate:
+    #      ddl-auto: update  # Hibernate 자동 DDL 생성 옵션
 
     properties:
       hibernate:
@@ -26,17 +24,7 @@ spring:
 
   data:
     redis:
-      mode: cluster  # standalone, cluster
-      cluster:
-        max-redirects: 3
-        connect-ip: ${CLUSTER_CONNECT_IP}
-        nodes:
-          - ${CLUSTER_NODE_1}
-          - ${CLUSTER_NODE_2}
-          - ${CLUSTER_NODE_3}
-          - ${CLUSTER_NODE_4}
-          - ${CLUSTER_NODE_5}
-          - ${CLUSTER_NODE_6}
+      mode: standalone  # 테스트에서는 로컬 Redis 사용
 
 logging.level:
   org.hibernate.SQL: debug  # Hibernate SQL 쿼리를 debug 레벨로 설정하여 로깅합니다.
