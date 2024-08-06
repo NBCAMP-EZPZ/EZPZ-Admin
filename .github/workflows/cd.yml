@@ -132,5 +132,5 @@ jobs:
         run: |
             aws deploy create-deployment --application-name ezpz-admin-deploy \
             --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name ezpz-admin \
+            --deployment-group-name ezpz-admin-ASG \
             --s3-location bucket=${{ secrets.S3_BUCKET }},bundleType=zip,key=ezpz-admin-latest.zip
