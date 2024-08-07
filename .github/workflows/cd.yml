@@ -111,16 +111,16 @@ jobs:
           echo "aws ecr get-login-password --region ${{ secrets.AWS_REGION}} | docker login --username AWS --password-stdin ${{ env.ECR_URL }}" >> scripts/deploy.sh
           echo "docker pull ${{ env.ECR_URL }}:latest" >> scripts/deploy.sh
           echo "docker run -d -p 8080:8082 \
-                -e SERVER_PORT=${{ env.SERVER_PORT }} \
-                -e DATASOURCE_URL=${{ env.DATASOURCE_URL }} \
-                -e DATASOURCE_USERNAME=${{ env.DATASOURCE_USERNAME }} \
-                -e DATASOURCE_PASSWORD=${{ env.DATASOURCE_PASSWORD }} \
-                -e JWT_SECRET_KEY=${{ env.JWT_SECRET_KEY }} \
-                -e ACCESS_TOKEN_TTL=${{ env.ACCESS_TOKEN_TTL }} \
-                -e REFRESH_TOKEN_TTL=${{ env.REFRESH_TOKEN_TTL }} \
-                -e DDL_AUTO=${{ env.DDL_AUTO }} \
-                -e REDIS_HOST=${{ env.REDIS_HOST }} \
-                -e REDIS_PORT=${{ env.REDIS_PORT }} \
+                -e SERVER_PORT=${{ secrets.SERVER_PORT }} \
+                -e DATASOURCE_URL=${{ secrets.DATASOURCE_URL }} \
+                -e DATASOURCE_USERNAME=${{ secrets.DATASOURCE_USERNAME }} \
+                -e DATASOURCE_PASSWORD=${{ secrets.DATASOURCE_PASSWORD }} \
+                -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
+                -e ACCESS_TOKEN_TTL=${{ secrets.ACCESS_TOKEN_TTL }} \
+                -e REFRESH_TOKEN_TTL=${{ secrets.REFRESH_TOKEN_TTL }} \
+                -e DDL_AUTO=${{ secrets.DDL_AUTO }} \
+                -e REDIS_HOST=${{ secrets.REDIS_HOST }} \
+                -e REDIS_PORT=${{ secrets.REDIS_PORT }} \
                 --restart always --name ezpz-admin ${{ env.ECR_URL }}:latest" >> scripts/deploy.sh
 
       # deploy files upload to S3
