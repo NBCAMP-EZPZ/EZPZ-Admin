@@ -123,11 +123,13 @@ jobs:
                 -e REDIS_PORT=${{ env.REDIS_PORT }} \
                 --restart always --name ezpz-admin ${{ env.ECR_URL }}:latest" >> scripts/deploy.sh
 
+      # deploy files upload to S3
       - name: upload to S3
         run: |
           zip -r ezpz-admin-latest.zip ./scripts appspec.yml
           aws s3 cp --region ${{ secrets.AWS_REGION }} --acl private ./ezpz-admin-latest.zip s3://${{ secrets.S3_BUCKET }}
 
+      # start deploy
       - name: start deploy
         run: |
             aws deploy create-deployment --application-name ezpz-admin-deploy \
