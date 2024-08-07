@@ -110,7 +110,7 @@ jobs:
           touch scripts/deploy.sh
           echo "aws ecr get-login-password --region ${{ secrets.AWS_REGION}} | docker login --username AWS --password-stdin ${{ env.ECR_URL }}" >> scripts/deploy.sh
           echo "docker pull ${{ env.ECR_URL }}:latest" >> scripts/deploy.sh
-          echo "docker run -p docker run -d -p 8080:8082 \
+          echo "docker run -d -p 8080:8082 \
                 -e SERVER_PORT=${{ env.SERVER_PORT }} \
                 -e DATASOURCE_URL=${{ env.DATASOURCE_URL }} \
                 -e DATASOURCE_USERNAME=${{ env.DATASOURCE_USERNAME }} \
