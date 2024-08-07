@@ -129,7 +129,7 @@ jobs:
           zip -r ezpz-admin-latest.zip ./scripts appspec.yml
           aws s3 cp --region ${{ secrets.AWS_REGION }} --acl private ./ezpz-admin-latest.zip s3://${{ secrets.S3_BUCKET }}
 
-      # start deploy 
+      # start deploy
       - name: start deploy
         run: |
             aws deploy create-deployment --application-name ezpz-admin-deploy \
