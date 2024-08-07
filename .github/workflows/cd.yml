@@ -130,7 +130,7 @@ jobs:
           aws s3 cp --region ${{ secrets.AWS_REGION }} --acl private ./ezpz-admin-latest.zip s3://${{ secrets.S3_BUCKET }}
 
       # start deploy
-      - name: start deploy 
+      - name: start deploy
         run: |
             aws deploy create-deployment --application-name ezpz-admin-deploy \
             --deployment-config-name CodeDeployDefault.OneAtATime \
