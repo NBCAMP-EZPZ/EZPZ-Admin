@@ -127,7 +127,7 @@ jobs:
       - name: upload to S3
         run: |
           zip -r ezpz-admin-latest.zip ./scripts appspec.yml
-          aws s3 cp --region ${{ secrets.AWS_REGION }} --acl private ./ezpz-admin-latest.zip s3://${{ secrets.S3_BUCKET }}
+          aws s3 cp --region ${{ secrets.AWS_REGION }} --acl private ./ezpz-admin-latest.zip s3://${{ secrets.S3_BUCKET }}/scripts
 
       # start deploy
       - name: start deploy 
@@ -135,4 +135,4 @@ jobs:
             aws deploy create-deployment --application-name ezpz-admin-deploy \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name ezpz-admin \
-            --s3-location bucket=${{ secrets.S3_BUCKET }},bundleType=zip,key=ezpz-admin-latest.zip
+            --s3-location bucket=${{ secrets.S3_BUCKET }},bundleType=zip,key=scripts/ezpz-admin-latest.zip
