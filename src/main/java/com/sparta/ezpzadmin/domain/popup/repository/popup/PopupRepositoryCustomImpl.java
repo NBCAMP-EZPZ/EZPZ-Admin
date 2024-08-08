@@ -10,12 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Objects;
 
 import static com.sparta.ezpzadmin.domain.popup.entity.QPopup.popup;
 
+@Repository
 @RequiredArgsConstructor
 public class PopupRepositoryCustomImpl implements PopupRepositoryCustom {
 
